@@ -16,22 +16,27 @@ public class TaskController {
 //    }
     @Autowired
     private TaskService taskService;
+
     @GetMapping("/")
     public ResponseEntity<List<Task>> getAllTasks() {
         return ResponseEntity.ok(taskService.getAllTask());
     }
+
     @GetMapping("/completed")
     public ResponseEntity<List<Task>> getAllCompletedTasks() {
         return ResponseEntity.ok(taskService.findAllCompletedTask());
     }
+
     @GetMapping("/incomplete")
     public ResponseEntity<List<Task>> getAllIncompleteTasks() {
         return ResponseEntity.ok(taskService.findAllInCompleteTask());
     }
+
     @PostMapping("/")
     public ResponseEntity<Task> createTask(@RequestBody Task task) {
         return ResponseEntity.ok(taskService.createNewTask(task));
     }
+
     @PutMapping("/{id}")
     public ResponseEntity<Task> updateTask(@PathVariable Long id, @RequestBody Task task) {
         task.setId(id);
@@ -46,16 +51,27 @@ public class TaskController {
 //    public ResponseEntity<?>deleteTask(@PathVariable Long id){
 //        taskService.deleteTask(id);
 //        return ResponseEntity.ok(true);
-////    }
-@DeleteMapping("/delete{id}")
-public ResponseEntity<Void> deleteTask(@PathVariable Long id) {
-    Task task = taskService.findTaskById(id);
-    if (task != null) {
-        taskService.deleteTask(id);
-        return ResponseEntity.noContent().build();
-    } else {
-        return ResponseEntity.notFound().build();
-    }
+//////    }
+//@DeleteMapping("/delete{id}")
+//public ResponseEntity<Void> deleteTask(@PathVariable Long id) {
+//    Task task = taskService.findTaskById(id);
+//    if (task != null) {
+//        taskService.deleteTask(id);
+//        return ResponseEntity.noContent().build();
+//    } else {
+//        return ResponseEntity.notFound().build();
+//    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteTask(@PathVariable Long id) {
+        Task task = taskService.findTaskById(id);
+        if (task != null) {
+            taskService.deleteTask(id);
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+
 }
 
 }
